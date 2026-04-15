@@ -99,47 +99,26 @@ export default function Hero() {
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#FAF7F2] via-[#F5EFE6] to-[#FAF7F2]"
+      className="relative min-h-screen flex items-center overflow-hidden bg-slate"
     >
-      {/* ── Animated Background Layer ── */}
+      {/* ── Background Video ── */}
+      <div className="absolute inset-0">
+        <video
+          src="/rovervideo.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/70 md:bg-gradient-to-r md:from-black/75 md:via-black/55 md:to-black/40" />
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/70 to-transparent" />
+      </div>
+
+      {/* ── Subtle animated layer over video ── */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Large morphing blob - top-right (warm earth) */}
-        <div
-          className="absolute -top-20 -right-20 w-[600px] h-[600px] bg-gradient-to-br from-sand/70 via-amber/20 to-sand-light/40 animate-morph blur-[40px]"
-          style={{
-            transform: `translate(${mouse.x * -30}px, ${mouse.y * -20}px)`,
-            transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        />
-        {/* Medium morphing blob - bottom-left (earth + green) */}
-        <div
-          className="absolute -bottom-32 -left-20 w-[500px] h-[500px] bg-gradient-to-tr from-sand/50 via-mint-light/25 to-sand-light/30 animate-morph blur-[50px]"
-          style={{
-            animationDelay: '-5s',
-            transform: `translate(${mouse.x * 20}px, ${mouse.y * 15}px)`,
-            transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        />
-        {/* Small accent blob */}
-        <div
-          className="absolute top-1/4 right-[15%] w-[300px] h-[300px] bg-gradient-to-br from-terra-light/12 to-leaf/8 rounded-full blur-[80px] animate-float-slow"
-          style={{
-            transform: `translate(${mouse.x * 40}px, ${mouse.y * 30}px)`,
-            transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-        />
-
-        {/* Dot grid with mask */}
-        <div
-          className="absolute inset-0 opacity-[0.18]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #8B5E3C 0.5px, transparent 0.5px)',
-            backgroundSize: '32px 32px',
-            maskImage: 'radial-gradient(ellipse 80% 70% at 30% 50%, black, transparent)',
-            WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 30% 50%, black, transparent)',
-          }}
-        />
-
         {/* Floating particles */}
         {particles.map((p) => (
           <div
@@ -149,7 +128,7 @@ export default function Hero() {
               left: `${p.x}%`,
               top: `${p.y}%`,
               fontSize: `${p.size}px`,
-              opacity: p.opacity,
+              opacity: p.opacity * 0.6,
               animationDuration: `${p.dur}s`,
               animationDelay: `${p.delay}s`,
             }}
@@ -157,36 +136,29 @@ export default function Hero() {
             {p.emoji}
           </div>
         ))}
-
-        {/* Orbiting elements */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-0 h-0">
-          <div className="animate-orbit opacity-15">
-            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-leaf to-sky" />
-          </div>
-        </div>
       </div>
 
-      {/* ── Main Content: Split Layout ── */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pt-28 pb-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* ── Left Column: Text Content ── */}
-          <div className="order-2 lg:order-1">
+      {/* ── Main Content: Centered over video ── */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-6 lg:px-12 pt-24 sm:pt-32 pb-20 sm:pb-28">
+        <div>
+          {/* ── Text Content ── */}
+          <div>
             {/* Logo + Brand cluster */}
             <div
-              className={`flex items-center gap-4 mb-8 transition-all duration-700 ${
+              className={`flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 transition-all duration-700 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
               <img
                 src="/logo.png"
                 alt="Herds-1 Logo"
-                className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-lg"
+                className="w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.3)]"
               />
               <div>
-                <div className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-extrabold tracking-[-0.02em] text-forest">
+                <div className="font-[family-name:var(--font-display)] text-xl sm:text-2xl md:text-3xl font-extrabold tracking-[-0.02em] text-white">
                   HERDS-1
                 </div>
-                <div className="text-[10px] md:text-[11px] font-semibold tracking-[0.18em] uppercase text-terra-light">
+                <div className="text-[10px] md:text-[11px] font-semibold tracking-[0.18em] uppercase text-amber">
                   AgroTech de Doble Acción
                 </div>
               </div>
@@ -194,62 +166,62 @@ export default function Hero() {
 
             {/* Badge */}
             <div
-              className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-terra/[0.06] border border-terra/10 mb-8 transition-all duration-700 delay-100 ${
+              className={`inline-flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6 sm:mb-8 transition-all duration-700 delay-100 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-terra" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber" />
               </span>
-              <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-clay">
+              <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-white/90">
                 Patente en trámite
               </span>
             </div>
 
             {/* Heading */}
             <h1
-              className={`font-[family-name:var(--font-display)] text-[clamp(2.2rem,5vw,3.8rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-slate transition-all duration-700 delay-200 ${
+              className={`font-[family-name:var(--font-display)] text-[clamp(1.75rem,7vw,4.2rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-white transition-all duration-700 delay-200 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               El Futuro de la
               <br />
               <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-clay via-terra to-forest bg-[length:300%_100%] bg-clip-text text-transparent animate-gradient">
+                <span className="bg-gradient-to-r from-amber via-sand to-mint bg-[length:300%_100%] bg-clip-text text-transparent animate-gradient">
                   {typedText}
                 </span>
-                <span className="inline-block w-[3px] h-[0.9em] bg-terra/60 ml-0.5 align-middle animate-pulse" />
+                <span className="inline-block w-[3px] h-[0.9em] bg-amber/70 ml-0.5 align-middle animate-pulse" />
               </span>
             </h1>
 
             {/* Subtitle */}
             <p
-              className={`mt-6 max-w-xl text-[16px] md:text-[17px] leading-relaxed text-slate-soft transition-all duration-700 delay-300 ${
+              className={`mt-4 sm:mt-6 max-w-xl text-[14px] sm:text-[16px] md:text-[17px] leading-relaxed text-white/80 transition-all duration-700 delay-300 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               Rovers autónomos que siembran un{' '}
-              <span className="font-semibold text-clay">hidrogel patentado</span> con doble acción:
+              <span className="font-semibold text-amber">hidrogel patentado</span> con doble acción:
               irrigación inteligente por ósmosis y remediación de suelos salinos.
             </p>
 
             {/* Stats inline */}
             <div
-              className={`mt-8 flex flex-wrap gap-6 transition-all duration-700 delay-400 ${
+              className={`mt-6 sm:mt-8 grid grid-cols-3 gap-3 sm:gap-6 sm:flex sm:flex-wrap transition-all duration-700 delay-400 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               {[
-                { value: `${count70}%`, label: 'Ahorro hídrico', color: 'text-terra' },
-                { value: `${count3}x`, label: 'Recuperación suelos', color: 'text-clay' },
-                { value: '24/7', label: 'Autónomo', color: 'text-forest' },
+                { value: `${count70}%`, label: 'Ahorro hídrico', color: 'text-amber' },
+                { value: `${count3}x`, label: 'Recuperación suelos', color: 'text-sand' },
+                { value: '24/7', label: 'Autónomo', color: 'text-mint' },
               ].map((stat) => (
-                <div key={stat.label} className="group cursor-default">
-                  <div className={`text-2xl md:text-3xl font-extrabold font-[family-name:var(--font-display)] ${stat.color} tracking-tight group-hover:scale-110 transition-transform duration-300`}>
+                <div key={stat.label} className="group cursor-default text-center sm:text-left">
+                  <div className={`text-xl sm:text-2xl md:text-3xl font-extrabold font-[family-name:var(--font-display)] ${stat.color} tracking-tight group-hover:scale-110 transition-transform duration-300`}>
                     {stat.value}
                   </div>
-                  <div className="text-[10px] text-slate-soft font-medium uppercase tracking-[0.1em]">
+                  <div className="text-[9px] sm:text-[10px] text-white/50 font-medium uppercase tracking-[0.1em]">
                     {stat.label}
                   </div>
                 </div>
@@ -258,13 +230,13 @@ export default function Hero() {
 
             {/* CTA Buttons */}
             <div
-              className={`mt-10 flex flex-col sm:flex-row items-start gap-3 transition-all duration-700 delay-500 ${
+              className={`mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-start gap-3 transition-all duration-700 delay-500 ${
                 visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
               <a
                 href="#contacto"
-                className="group relative inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gradient-to-r from-clay via-terra to-clay text-white font-semibold text-[15px] overflow-hidden transition-all duration-500 shadow-[0_4px_15px_rgba(107,66,38,0.3)] hover:shadow-[0_8px_30px_rgba(107,66,38,0.4)] hover:scale-[1.03] active:scale-[0.98]"
+                className="group relative inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-amber via-terra-light to-amber text-slate font-semibold text-[14px] sm:text-[15px] overflow-hidden transition-all duration-500 shadow-[0_4px_20px_rgba(200,149,109,0.4)] hover:shadow-[0_8px_35px_rgba(200,149,109,0.5)] hover:scale-[1.03] active:scale-[0.98]"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <span className="relative">Solicitar Demo</span>
@@ -274,7 +246,7 @@ export default function Hero() {
               </a>
               <a
                 href="#tecnologia"
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-full text-slate-mid font-semibold text-[15px] border border-terra/15 hover:border-terra/30 hover:bg-terra/[0.04] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full text-white font-semibold text-[14px] sm:text-[15px] border border-white/25 hover:border-white/50 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
               >
                 Explorar Tecnología
                 <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -284,105 +256,40 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right Column: Rover Visual ── */}
-          <div className="order-1 lg:order-2">
-            <div
-              className={`relative transition-all duration-1000 delay-300 ${
-                visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
-              }`}
-            >
-              {/* Glow ring behind rover */}
+          {/* ── Feature chips row ── */}
+          <div
+            className={`mt-8 sm:mt-10 flex flex-wrap gap-2 sm:gap-2.5 transition-all duration-700 delay-600 ${
+              visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            {[
+              { icon: '🛰️', label: 'GPS RTK + LiDAR' },
+              { icon: '💧', label: 'Osmosis Inteligente' },
+              { icon: '🧪', label: 'Remediación' },
+              { icon: '☀️', label: 'Solar 400W' },
+              { icon: '🤖', label: 'Autónomo 24/7' },
+            ].map((chip, i) => (
               <div
-                className="absolute inset-0 m-auto w-[80%] h-[80%] rounded-full bg-gradient-to-br from-amber/20 via-sand/15 to-terra-light/10 blur-[60px] animate-pulse"
-                style={{
-                  transform: `translate(${mouse.x * -15}px, ${mouse.y * -10}px)`,
-                  transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
-              />
-
-              {/* Main rover card with 3D tilt */}
-              <div
-                className="relative rounded-3xl bg-white/60 backdrop-blur-xl border border-sand/50 shadow-[0_8px_60px_rgba(139,94,60,0.08)] p-6 md:p-8 overflow-hidden"
-                style={{
-                  transform: `perspective(1000px) rotateY(${mouse.x * 4}deg) rotateX(${mouse.y * -4}deg)`,
-                  transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                }}
+                key={chip.label}
+                className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm ${
+                  visible ? 'animate-scale-in' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${900 + i * 80}ms` }}
               >
-                {/* Accent line */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber/50 to-transparent" />
-
-                {/* Rover Video */}
-                <video
-                  src="/rovervideo.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto rounded-2xl"
-                />
-
-                {/* Overlay label */}
-                <div className="mt-4 flex items-center justify-between">
-                  <div>
-                    <div className="text-[13px] font-bold text-slate font-[family-name:var(--font-display)]">
-                      Rover Autónomo H-1
-                    </div>
-                    <div className="text-[10px] text-slate-soft uppercase tracking-wider">
-                      Irrigación + Remediación
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber/10 border border-amber/20">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-terra" />
-                    </span>
-                    <span className="text-[10px] font-semibold text-forest">Operativo</span>
-                  </div>
-                </div>
-
-                {/* Feature chips on card */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {[
-                    { icon: '🛰️', label: 'GPS RTK' },
-                    { icon: '💧', label: 'Osmosis' },
-                    { icon: '🧪', label: 'Remediación' },
-                    { icon: '☀️', label: 'Solar 400W' },
-                  ].map((chip, i) => (
-                    <div
-                      key={chip.label}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-terra/[0.05] border border-terra/[0.08] ${
-                        visible ? 'animate-scale-in' : 'opacity-0'
-                      }`}
-                      style={{ animationDelay: `${800 + i * 100}ms` }}
-                    >
-                      <span className="text-xs">{chip.icon}</span>
-                      <span className="text-[10px] font-semibold text-clay">{chip.label}</span>
-                    </div>
-                  ))}
-                </div>
+                <span className="text-xs sm:text-sm">{chip.icon}</span>
+                <span className="text-[10px] sm:text-[11px] font-semibold text-white/90">{chip.label}</span>
               </div>
-
-              {/* Floating badges */}
-              <div className="absolute -top-3 -left-3 md:left-2 px-3 py-1.5 rounded-full bg-white shadow-[0_4px_20px_rgba(139,94,60,0.08)] border border-sand/40 animate-float-slow z-10">
-                <span className="text-xs font-semibold text-terra">IoT Conectado</span>
-              </div>
-              <div className="absolute -top-3 -right-3 md:right-2 px-3 py-1.5 rounded-full bg-white shadow-[0_4px_20px_rgba(139,94,60,0.08)] border border-sand/40 animate-float-slow delay-300 z-10">
-                <span className="text-xs font-semibold text-terra-light">IP67</span>
-              </div>
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-white shadow-[0_4px_20px_rgba(139,94,60,0.08)] border border-sand/40 animate-float delay-500 z-10">
-                <span className="text-xs font-semibold text-clay">100% Autónomo</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* ── Scroll indicator ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <a href="#tecnologia" className="flex flex-col items-center gap-2 opacity-40 hover:opacity-70 transition-opacity">
-          <span className="text-[10px] font-medium text-slate-soft uppercase tracking-[0.15em]">Scroll</span>
-          <div className="w-5 h-8 rounded-full border-2 border-slate-soft/40 flex justify-center pt-1.5">
-            <div className="w-1 h-2 rounded-full bg-slate-soft/50 animate-bounce-subtle" />
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <a href="#tecnologia" className="flex flex-col items-center gap-2 opacity-50 hover:opacity-80 transition-opacity">
+          <span className="text-[10px] font-medium text-white/60 uppercase tracking-[0.15em]">Scroll</span>
+          <div className="w-5 h-8 rounded-full border-2 border-white/30 flex justify-center pt-1.5">
+            <div className="w-1 h-2 rounded-full bg-white/50 animate-bounce-subtle" />
           </div>
         </a>
       </div>

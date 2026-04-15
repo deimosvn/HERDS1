@@ -25,11 +25,11 @@ export default function Navbar() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-5 sm:px-6 h-16">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2.5 group">
           <img src="/logo.png" alt="Herds-1" className="w-8 h-8 rounded-lg object-contain group-hover:scale-105 transition-transform" />
-          <span className="text-[17px] font-bold tracking-tight text-slate font-[family-name:var(--font-display)]">
+          <span className={`text-[17px] font-bold tracking-tight font-[family-name:var(--font-display)] transition-colors duration-500 ${scrolled ? 'text-slate' : 'text-white'}`}>
             Herds-1
           </span>
         </a>
@@ -61,14 +61,14 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl hover:bg-black/[0.04] transition-colors"
+          className={`md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors ${scrolled ? 'hover:bg-black/[0.04]' : 'hover:bg-white/10'}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Menu"
         >
           <div className="flex flex-col gap-[5px]">
-            <span className={`block w-5 h-[1.5px] bg-slate transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-slate transition-all duration-300 ${mobileOpen ? 'opacity-0 scale-0' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-slate transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${scrolled ? 'bg-slate' : 'bg-white'} ${mobileOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${scrolled ? 'bg-slate' : 'bg-white'} ${mobileOpen ? 'opacity-0 scale-0' : ''}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${scrolled ? 'bg-slate' : 'bg-white'} ${mobileOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
           </div>
         </button>
       </div>
